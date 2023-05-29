@@ -1,36 +1,3 @@
 <main>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <h2 class="">Login</h2>
-    <p class="sub-text">Sign in to continue</p>
-    <div class="form-group">
-      <div class="form-control">
-        <label for="username" [class.error]="loginForm.controls.username.invalid && isSubmitted" 
-        [class.valid]="loginForm.controls.username.valid && isSubmitted">
-          Username 
-          <span *ngIf="loginForm.controls.username.invalid && isSubmitted">
-            <span class="spacer">-</span>
-            Required
-          </span>
-        </label>
-        <input type="text" id="username" formControlName="username">
-      </div>
-      <div class="form-control">
-        <label for="password" [class.error]="loginForm.controls.password.invalid && isSubmitted"
-        [class.valid]="loginForm.controls.password.valid && isSubmitted">
-          Password
-          <span *ngIf="loginForm.controls.password.hasError('required') && isSubmitted">
-            <span class="spacer">-</span>
-             Required
-            </span>
-          <span *ngIf="loginForm.controls.password.hasError('minlength') && isSubmitted">
-             <span class="spacer">-</span>
-             Password must be minimum 6 characters
-          </span>
-        </label>
-        <input type="text" id="password" formControlName="password">
-      </div>
-    </div>
-    <button type="submit">Sign in</button>
-    <p class="sub-text">Don't have an account? <a routerLink="/signup">Sign Up</a></p>
-  </form>
+  <app-form formType="login"></app-form>
 </main>
