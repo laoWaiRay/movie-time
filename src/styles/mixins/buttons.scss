@@ -1,11 +1,11 @@
 @mixin navBtn {
-  color: var(--gray-lightest);
-  padding: .4rem .5rem;
+  color: var(--white);
+  padding: .6rem .4rem;
   border-radius: 5px;
   font-weight: 700;
+}
 
-    &:hover {
-      background-color: var(--gray-lightest);
-      color: var(--black);
-    }
+@mixin navBtnActive {
+  background-color: var(--white);
+  color: var(--bg-dark);
 }

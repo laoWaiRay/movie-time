@@ -6,10 +6,13 @@
   --accent-dark: #492B6F;
   --accent-light: #A287F4;
   --success: #37C857;
+  --compliment: #5DC53A;
+  --danger: #d72d28;
   --gray-darkest: #4B5059;
   --gray-dark: #606060;
   --gray-light: #909090;
-  --gray-lightest: #F8FAFC;
+  --gray-lightest: #e9e9e9;
+  --white: #ffffff;
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -77,11 +80,31 @@ body {
 }
 
 button, input, a {
-  color: inherit;
+  color: var(--white);
   font-family: inherit;
   font-size: inherit;
+  font-weight: inherit;
+    &:focus-visible {
+      outline: 4px solid var(--compliment);
+      outline-offset: 2px;
+    }
 }
 
 a {
   text-decoration: none;
+}
+
+input {
+  border-radius: 6px;
+  border: none;
+  padding: 8px;
+  background-color: var(--gray-lightest);
+  color: var(--black);
+  font-weight: 500;
+}
+
+button {
+  &:hover {
+    cursor: pointer;
+  }
 }
