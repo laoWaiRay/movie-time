@@ -1,0 +1,42 @@
+.form-control {
+  margin: 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+
+    label {
+     margin-bottom: 10px;
+     display: flex;
+        
+        span {
+          display: flex;
+        }
+    }
+}
+
+.spacer {
+  display: block;
+  margin: 0 4px;
+}
+
+.error {
+  color: var(--danger) !important;
+}
+
+.valid {
+  color: var(--success) !important;
+}
+
+.selected {
+  color: var(--accent-light);
+}
+
+.valid-input {
+  outline: 4px solid var(--success);
+  outline-offset: 2px;
+}
+
+.error-input {
+  outline: 4px solid var(--danger);
+  outline-offset: 2px;
+}

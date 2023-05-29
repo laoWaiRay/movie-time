@@ -5,8 +5,8 @@
   --bg-light: #101828;
   --accent-dark: #492B6F;
   --accent-light: #A287F4;
-  --success: #37C857;
-  --compliment: #5DC53A;
+  --success: #5DC53A;
+  // --compliment: #5DC53A;
   --danger: #d72d28;
   --gray-darkest: #4B5059;
   --gray-dark: #606060;
@@ -85,7 +85,7 @@ button, input, a {
   font-size: inherit;
   font-weight: inherit;
     &:focus-visible {
-      outline: 4px solid var(--compliment);
+      outline: 4px solid var(--accent-light);
       outline-offset: 2px;
     }
 }

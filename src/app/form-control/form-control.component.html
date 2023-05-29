@@ -1,0 +1,19 @@
+<div [formGroup]="form">
+  <div class="form-control">
+    <label for="username" #usernameLabel [class.error]="!isValid() && submitted"
+    [class.valid]="isValid() && submitted" [class.selected]="isFocused">
+      <b>{{capitalize(type)}}</b>
+      <span *ngIf="form.controls[type].invalid && submitted" class="spacer">-</span>
+      <span *ngIf="form.controls[type].invalid && submitted">
+        {{ errMsg }}
+      </span>
+    </label>
+    <input type="text" id="username" #inputRef
+      [formControlName]="type" 
+      (focus)="onFocus()"
+      (blur)="onBlur()" 
+      [class.error-input]="!isValid() && submitted && isFocused && inputRef.value"
+      [class.valid-input]="isValid() && submitted && isFocused && inputRef.value"
+    >
+  </div>
+</div>

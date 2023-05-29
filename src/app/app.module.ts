@@ -13,19 +13,21 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { FormComponent } from './form/form.component';
+import { FormControlComponent } from './form-control/form-control.component';
 
 @NgModule({
-  declarations: [   
+  declarations: [
     AppComponent,
     NavbarComponent,
     LoginComponent,
     SignupComponent,
     FormComponent,
+    FormControlComponent,
   ],
   imports: [
-    // Material Components
+    // Material Modules
     MatToolbarModule,
-    // NG Components
+    // NG Modules
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule

@@ -3,19 +3,10 @@
   <p class="sub-text">{{ titleMsg }}</p>
   <div class="form-group">
     <!-- Username control -->
-    <div class="form-control">
-      <label for="username" [class.error]="loginForm.controls.username.invalid && isSubmitted" 
-      [class.valid]="loginForm.controls.username.valid && isSubmitted">
-        <b>Username</b>
-        <span *ngIf="loginForm.controls.username.invalid && isSubmitted" class="spacer">-</span>
-        <span *ngIf="loginForm.controls.username.invalid && isSubmitted">
-          Required
-        </span>
-      </label>
-      <input type="text" id="username" formControlName="username">
-    </div>
+    <app-form-control [appForm]="loginForm" [appSubmitted]="isSubmitted" appType="username"></app-form-control>
     <!-- Password Control -->
-    <div class="form-control">
+    <app-form-control [appForm]="loginForm" [appSubmitted]="isSubmitted" appType="password"></app-form-control>
+    <!-- <div class="form-control">
       <label for="password" [class.error]="loginForm.controls.password.invalid && isSubmitted"
       [class.valid]="loginForm.controls.password.valid && isSubmitted">
         <b>Password</b>
@@ -28,7 +19,7 @@
         </span>
       </label>
       <input type="text" id="password" formControlName="password">
-    </div>
+    </div> -->
     <!-- Confirm Password Control -->
     <div class="form-control" *ngIf="formType==='signup'">
       <label for="confirmPw"
