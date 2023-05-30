@@ -2,13 +2,15 @@
   <h2 class="">{{ title }}</h2>
   <p class="sub-text">{{ titleMsg }}</p>
   <div class="form-group">
+    <!-- Email control -->
+    <app-form-control [appForm]="loginForm" [appSubmitted]="isSubmitted" appType="email"></app-form-control>
     <!-- Username control -->
-    <app-form-control [appForm]="loginForm" [appSubmitted]="isSubmitted" appType="username"></app-form-control>
+    <app-form-control *ngIf="formType==='signup'" [appForm]="loginForm" [appSubmitted]="isSubmitted" appType="username"></app-form-control>
     <!-- Password Control -->
     <app-form-control [appForm]="loginForm" [appSubmitted]="isSubmitted" appType="password"></app-form-control>
     <!-- Confirm Password Control -->
-    <app-form-control [appForm]="loginForm" [appSubmitted]="isSubmitted" appType="confirmPw"></app-form-control>
+    <app-form-control *ngIf="formType==='signup'" [appForm]="loginForm" [appSubmitted]="isSubmitted" appType="confirmPw"></app-form-control>
   </div>
   <button type="submit">Sign in</button>
-  <p class="sub-text">{{ helpMsg }} <a routerLink="/signup">{{ linkMsg }}</a></p>
+  <p class="sub-text">{{ helpMsg }} <a routerLink="{{ link }}">{{ linkMsg }}</a></p>
 </form>

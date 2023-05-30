@@ -1,6 +1,5 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { capitalize } from '../helpers';
 import { UuidService } from '../uuid.service';
 import { PasswordMatchValidator } from '../password-match-validator.directive';
 
@@ -12,7 +11,7 @@ import { PasswordMatchValidator } from '../password-match-validator.directive';
 export class FormControlComponent implements OnInit, OnChanges {
   @Input('appForm') form!: FormGroup;
   @Input('appSubmitted') submitted = false;
-  @Input('appType') type!: "username" | "password" | "confirmPw"
+  @Input('appType') type!: "email" | "username" | "password" | "confirmPw"
   @Input() minLength = 6;
   // Reference to this form control (created and added to form group after OnInit runs)
   id = '';
@@ -20,8 +19,6 @@ export class FormControlComponent implements OnInit, OnChanges {
   labelName = '';
   errMsg = '';
   isFocused = false;
-
-  capitalize = capitalize;
 
   constructor(
     private el: ElementRef,
@@ -33,6 +30,11 @@ export class FormControlComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     // Create the form control and set Validators based on type of control needed
     switch (this.type) {
+      case "email":
+        this.labelName = "Email";
+        this.form.addControl(this.type, new FormControl('', 
+                [Validators.required, Validators.email]))
+        break;
       case "username":
         this.labelName = "Username";
         this.form.addControl(this.type, new FormControl('', [Validators.required]))
@@ -62,22 +64,30 @@ export class FormControlComponent implements OnInit, OnChanges {
   }
 
   setErrMsg(str: string): void {
+    // Since all fields are required just put this here
     if (!str) {
       this.errMsg = "Required";
       return;
     }
     
+    // Set error messages according to the type of the formControl
     switch (this.type) {
-      case ("username"):
+      case ("email"):
+        if (this.formControl?.errors?.['email'])
+          this.errMsg = "Please enter a valid email"
         break;
       case ("password"):
+        // Minimum length
         if (str.length < this.minLength) {
           this.errMsg = `Password must be ${this.minLength} characters or longer`;
         } 
         break;
       case ("confirmPw"):
+        // Minimum length
         if (str.length < this.minLength) {
           this.errMsg = `Password must be ${this.minLength} characters or longer`;
+
+          // Check passwords match
         } else if (this.form.errors?.['passwordMatch']) {
           this.errMsg = "Passwords must match";
         }
@@ -86,6 +96,7 @@ export class FormControlComponent implements OnInit, OnChanges {
   }
 
   isValid(): boolean {
+    // Slightly different check if it is a 'confirmPw' formControl
     if (this.type === ("confirmPw")) {
       return this.formControl!.valid && !this.form.errors;
     }

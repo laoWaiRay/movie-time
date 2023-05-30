@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -14,11 +14,9 @@ export class FormComponent implements OnInit {
   titleMsg = ''
   helpMsg = ''
   linkMsg = ''
+  link = ''
 
-  loginForm: any = new FormGroup({
-    username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-  });
+  loginForm: any = new FormGroup({});
 
   ngOnInit(): void {
     switch(this.formType) {
@@ -27,19 +25,19 @@ export class FormComponent implements OnInit {
         this.titleMsg = "Sign up for a new account"
         this.helpMsg = "Already have an account?"
         this.linkMsg = "Sign In"
-        this.loginForm.setControl('confirmPassword', new FormControl('', [Validators.required]));
+        this.link = "/login"
         break;
       case "login":
         this.title = "Login"
         this.titleMsg = "Sign in to continue"
         this.helpMsg = "Don't have an account?"
         this.linkMsg = "Sign Up"
+        this.link = "/signup"
         break;
     }
   }
 
   onSubmit():void {
-    console.log(this.loginForm)
     this.isSubmitted = true;
   }
 }
