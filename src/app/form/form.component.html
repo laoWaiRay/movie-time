@@ -6,37 +6,8 @@
     <app-form-control [appForm]="loginForm" [appSubmitted]="isSubmitted" appType="username"></app-form-control>
     <!-- Password Control -->
     <app-form-control [appForm]="loginForm" [appSubmitted]="isSubmitted" appType="password"></app-form-control>
-    <!-- <div class="form-control">
-      <label for="password" [class.error]="loginForm.controls.password.invalid && isSubmitted"
-      [class.valid]="loginForm.controls.password.valid && isSubmitted">
-        <b>Password</b>
-        <span *ngIf="loginForm.controls.password.invalid && isSubmitted" class="spacer">-</span>
-        <span *ngIf="loginForm.controls.password.hasError('required') && isSubmitted">
-           Required
-          </span>
-        <span *ngIf="loginForm.controls.password.hasError('minlength') && isSubmitted">
-           Password must be minimum 6 characters
-        </span>
-      </label>
-      <input type="text" id="password" formControlName="password">
-    </div> -->
     <!-- Confirm Password Control -->
-    <div class="form-control" *ngIf="formType==='signup'">
-      <label for="confirmPw"
-      [class.error]="(loginForm.controls.confirmPassword.value !== loginForm.controls.password.value
-      || loginForm.controls.confirmPassword.value.length <= 6)
-      && isSubmitted" 
-      [class.valid]="loginForm.controls.confirmPassword.value === loginForm.controls.password.value && isSubmitted">
-        <b>Confirm Password</b>
-        <span *ngIf="(!loginForm.controls.confirmPassword.value || 
-        loginForm.controls.confirmPassword.value !== loginForm.controls.password.value) 
-        && isSubmitted">
-          <span class="spacer">-</span>
-          Passwords must match
-       </span>
-      </label>
-      <input type="text" id="confirmPw" formControlName="confirmPassword">
-    </div>
+    <app-form-control [appForm]="loginForm" [appSubmitted]="isSubmitted" appType="confirmPw"></app-form-control>
   </div>
   <button type="submit">Sign in</button>
   <p class="sub-text">{{ helpMsg }} <a routerLink="/signup">{{ linkMsg }}</a></p>

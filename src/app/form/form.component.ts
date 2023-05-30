@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PasswordMatchValidator } from '../password-match-validator.directive';
 
 @Component({
   selector: 'app-form',
@@ -29,7 +28,6 @@ export class FormComponent implements OnInit {
         this.helpMsg = "Already have an account?"
         this.linkMsg = "Sign In"
         this.loginForm.setControl('confirmPassword', new FormControl('', [Validators.required]));
-        this.loginForm.addValidators(PasswordMatchValidator);
         break;
       case "login":
         this.title = "Login"
@@ -41,6 +39,7 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit():void {
+    console.log(this.loginForm)
     this.isSubmitted = true;
   }
 }

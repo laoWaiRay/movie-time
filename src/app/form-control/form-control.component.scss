@@ -19,6 +19,11 @@
   margin: 0 4px;
 }
 
+b {
+  font-weight: 500;
+  min-width: fit-content;
+}
+
 .error {
   color: var(--danger) !important;
 }
