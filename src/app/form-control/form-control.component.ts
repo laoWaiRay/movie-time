@@ -1,7 +1,8 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UuidService } from '../uuid.service';
 import { PasswordMatchValidator } from '../password-match-validator.directive';
+import { FieldData } from 'src/interfaces/FieldData';
 
 @Component({
   selector: 'app-form-control',
@@ -19,6 +20,8 @@ export class FormControlComponent implements OnInit, OnChanges {
   labelName = '';
   errMsg = '';
   isFocused = false;
+
+  @Output() newDataEvent = new EventEmitter<FieldData>();
 
   constructor(
     private el: ElementRef,
@@ -114,5 +117,13 @@ export class FormControlComponent implements OnInit, OnChanges {
 
   onBlur(): void {
     this.isFocused = false;
+  }
+
+  emitValue(): void {
+    this.newDataEvent.emit({
+      validity: this.isValid(),
+      dataType: this.type,
+      data: this.formControl!.value
+    });
   }
 }

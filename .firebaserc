@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "movietime-56ad9": {
+      "hosting": {
+        "movieTime": [
+          "movietime-56ad9"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "movietime-56ad9"
+  }
+}

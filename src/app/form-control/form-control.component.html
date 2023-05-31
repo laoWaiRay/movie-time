@@ -14,6 +14,7 @@
       (blur)="onBlur()" 
       [class.error-input]="!isValid() && submitted && isFocused && inputRef.value"
       [class.valid-input]="isValid() && submitted && isFocused && inputRef.value"
+      (change)="emitValue()"
     >
   </div>
 </div>

@@ -1,5 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { FieldData } from 'src/interfaces/FieldData';
+import { FormData } from 'src/interfaces/FormData';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 @Component({
   selector: 'app-form',
@@ -17,6 +20,10 @@ export class FormComponent implements OnInit {
   link = ''
 
   loginForm: any = new FormGroup({});
+
+  formData: FormData = {} as FormData;
+
+  @Output() newDataEvent = new EventEmitter<FormData>();
 
   ngOnInit(): void {
     switch(this.formType) {
@@ -37,7 +44,14 @@ export class FormComponent implements OnInit {
     }
   }
 
-  onSubmit():void {
+  onSubmit(): void {
     this.isSubmitted = true;
+    if (this.loginForm.valid) {
+      this.newDataEvent.emit(this.formData);
+    }
+  }
+
+  updateData(data: FieldData): void {
+    this.formData[data.dataType] = [data.data, data.validity];
   }
 }

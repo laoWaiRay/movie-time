@@ -7,6 +7,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 // Material Components
 import {MatToolbarModule} from '@angular/material/toolbar';
 
+// Firebase
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { provideStorage,getStorage } from '@angular/fire/storage';
+
 // Components
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -27,10 +34,16 @@ import { FormControlComponent } from './form-control/form-control.component';
   imports: [
     // Material Modules
     MatToolbarModule,
+    // Firebase Modules
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
     // NG Modules
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

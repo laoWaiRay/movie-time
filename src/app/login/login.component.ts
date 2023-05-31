@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormData } from 'src/interfaces/FormData';
 
 @Component({
   selector: 'app-login',
@@ -7,5 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  
+  logData(data: FormData) {
+    console.log(data);
+  }
 }
