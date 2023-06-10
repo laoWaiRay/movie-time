@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, 
+         ElementRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UuidService } from '../uuid.service';
 import { PasswordMatchValidator } from '../password-match-validator.directive';
@@ -20,11 +21,13 @@ export class FormControlComponent implements OnInit, OnChanges {
   labelName = '';
   errMsg = '';
   isFocused = false;
+  isPwHidden = true;
 
   @Output() newDataEvent = new EventEmitter<FieldData>();
 
   constructor(
-    private uuid: UuidService
+    private uuid: UuidService,
+    private el: ElementRef
   ) {
     this.id = this.uuid.getId();
   }
@@ -117,6 +120,16 @@ export class FormControlComponent implements OnInit, OnChanges {
 
   onBlur(): void {
     this.isFocused = false;
+  }
+
+  toggleHidePw(): void {
+    this.isPwHidden = !this.isPwHidden;
+    const inputRef = this.el.nativeElement.querySelector('input');
+    if (this.isPwHidden)
+      inputRef.type = "password";
+    else 
+      inputRef.type = "text";
+    inputRef.focus();
   }
 
   emitValue(): void {

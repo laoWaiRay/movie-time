@@ -9,8 +9,8 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// :root {
-//   /* Colors */
+//   Colors Reference
+//
 //   --bg-dark: #050F21;
 //   --bg-light: #101828;
 //   --accent-dark: #492B6F;
@@ -20,7 +20,6 @@
 //   --gray-dark: #606060;
 //   --gray-light: #909090;
 //   --gray-lightest: #F8FAFC;
-// }
 
 // Custom Palettes
 
@@ -41,10 +40,6 @@ $accent-palette: (
     100: rgba(white, 0.87)
   )
 );
-
-// $success-palette: (
-//   50: #37C857
-// );
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker

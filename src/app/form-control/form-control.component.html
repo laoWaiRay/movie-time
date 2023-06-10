@@ -8,13 +8,22 @@
         {{ errMsg }}
       </span>
     </label>
-    <input type="text" id="{{type}}-{{id}}" #inputRef
-      [formControlName]="type" 
-      (focus)="onFocus()"
-      (blur)="onBlur()" 
-      [class.error-input]="!isValid() && submitted && isFocused && inputRef.value"
-      [class.valid-input]="isValid() && submitted && isFocused && inputRef.value"
-      (change)="emitValue()"
-    >
+    <div class="form-input">
+      <input [type]="['password', 'confirmPw'].includes(type) ? 'password' : 'text'" id="{{type}}-{{id}}" #inputRef
+        [formControlName]="type" 
+        (focus)="onFocus()"
+        (blur)="onBlur()" 
+        [class.error-input]="!isValid() && submitted && isFocused && inputRef.value"
+        [class.valid-input]="isValid() && submitted && isFocused && inputRef.value"
+        (change)="emitValue()"
+      >
+      <button type="button" *ngIf="['password','confirmPw'].includes(type)" class="pw-toggler"
+      (click)="toggleHidePw()">
+        <mat-icon *ngIf="isPwHidden; else toggleHidden" aria-label="toggle password show" fontIcon="visibility_off"></mat-icon>
+        <ng-template #toggleHidden >
+          <mat-icon aria-label="toggle password hide" fontIcon="visibility"></mat-icon>
+        </ng-template>
+      </button>
+    </div>
   </div>
 </div>

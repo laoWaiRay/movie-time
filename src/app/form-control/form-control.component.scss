@@ -1,19 +1,46 @@
+:host {
+  width: 100%;
+}
+
 .form-control {
   margin: 1.25rem 0;
   display: flex;
   flex-direction: column;
   font-weight: 400;
+  width: 100%;
 
     label {
-     margin-bottom: 10px;
-     display: flex;
-        
-        span {
+      margin-bottom: 10px;
+    }
+
+    .form-input {
+      width: 100%;
+      display: flex;
+      background-color: var(--gray-lightest);
+      position: relative;
+      border-radius: 6px;
+
+        input {
+          width: 100%;
+          padding-right: 2.4rem;
+        }
+
+        button {
+          border: 0;
+          border-radius: 6px;
+          background-color: transparent;
+          position: absolute;
+          height: 100%;
           display: flex;
+          align-items: center;
+          right: 0;
+        }
+
+        .pw-toggler {
+          color: var(--gray-darkest);
         }
     }
 }
-
 .spacer {
   display: block;
   margin: 0 4px;
