@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UuidService } from '../uuid.service';
 import { PasswordMatchValidator } from '../password-match-validator.directive';
@@ -24,7 +24,6 @@ export class FormControlComponent implements OnInit, OnChanges {
   @Output() newDataEvent = new EventEmitter<FieldData>();
 
   constructor(
-    private el: ElementRef,
     private uuid: UuidService
   ) {
     this.id = this.uuid.getId();
@@ -62,11 +61,12 @@ export class FormControlComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     // Update Error Message whenever the form is submitted
     if (changes['submitted'].currentValue === true) {
-      this.setErrMsg(this.el.nativeElement.value);
+      this.setErrMsg(this.formControl?.value);
     }
   }
 
   setErrMsg(str: string): void {
+    // console.log('changed', str)
     // Since all fields are required just put this here
     if (!str) {
       this.errMsg = "Required";

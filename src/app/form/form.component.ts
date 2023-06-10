@@ -19,7 +19,7 @@ export class FormComponent implements OnInit {
   linkMsg = ''
   link = ''
 
-  loginForm: any = new FormGroup({});
+  formGroup: any = new FormGroup({});
 
   formData: FormData = {} as FormData;
 
@@ -46,7 +46,7 @@ export class FormComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitted = true;
-    if (this.loginForm.valid) {
+    if (this.formGroup.valid) {
       this.newDataEvent.emit(this.formData);
     }
   }

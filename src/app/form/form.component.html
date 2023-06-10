@@ -1,18 +1,18 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <h2 class="">{{ title }}</h2>
   <p class="sub-text">{{ titleMsg }}</p>
   <div class="form-group">
     <!-- Email control -->
-    <app-form-control [appForm]="loginForm" [appSubmitted]="isSubmitted" appType="email" 
+    <app-form-control [appForm]="formGroup" [appSubmitted]="isSubmitted" appType="email" 
     (newDataEvent)="updateData($event)"></app-form-control>
     <!-- Username control -->
-    <app-form-control *ngIf="formType==='signup'" [appForm]="loginForm" [appSubmitted]="isSubmitted" 
+    <app-form-control *ngIf="formType==='signup'" [appForm]="formGroup" [appSubmitted]="isSubmitted" 
     appType="username" (newDataEvent)="updateData($event)"></app-form-control>
     <!-- Password Control -->
-    <app-form-control [appForm]="loginForm" [appSubmitted]="isSubmitted" appType="password"
+    <app-form-control [appForm]="formGroup" [appSubmitted]="isSubmitted" appType="password"
     (newDataEvent)="updateData($event)"></app-form-control>
     <!-- Confirm Password Control -->
-    <app-form-control *ngIf="formType==='signup'" [appForm]="loginForm" [appSubmitted]="isSubmitted" 
+    <app-form-control *ngIf="formType==='signup'" [appForm]="formGroup" [appSubmitted]="isSubmitted" 
     appType="confirmPw" (newDataEvent)="updateData($event)"></app-form-control>
   </div>
   <button type="submit">Sign in</button>

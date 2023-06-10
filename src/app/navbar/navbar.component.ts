@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit{
 
   ngOnInit(): void {
     const events = this.router.events.pipe(
-      // type predicate to help typescript infer that event is of type NavigaionEnd
+      // type predicate to help typescript infer that event is of type NavigationEnd
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     )
 
