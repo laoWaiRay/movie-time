@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UuidService } from '../uuid.service';
 import { PasswordMatchValidator } from '../password-match-validator.directive';
 import { FieldData } from 'src/interfaces/FieldData';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-form-control',
@@ -20,6 +21,8 @@ export class FormControlComponent implements OnInit, OnChanges {
   formControl?: FormControl;
   labelName = '';
   errMsg = '';
+  emailDbErr = false;
+  @Input() emailError$?: Observable<string>;
   isFocused = false;
   isPwHidden = true;
 
@@ -39,6 +42,12 @@ export class FormControlComponent implements OnInit, OnChanges {
         this.labelName = "Email";
         this.form.addControl(this.type, new FormControl('', 
                 [Validators.required, Validators.email]))
+        this.emailError$?.subscribe((error) => {
+          if (error) {
+            this.emailDbErr = true;
+            this.errMsg = error;
+          }
+        });
         break;
       case "username":
         this.labelName = "Username";
@@ -63,45 +72,48 @@ export class FormControlComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     // Update Error Message whenever the form is submitted
-    if (changes['submitted'].currentValue === true) {
-      this.setErrMsg(this.formControl?.value);
+    if (changes['submitted']?.currentValue === true) {
+        this.setErrMsg(this.formControl?.value);
     }
   }
 
   setErrMsg(str: string): void {
-    // console.log('changed', str)
     // Since all fields are required just put this here
     if (!str) {
       this.errMsg = "Required";
       return;
     }
+
+    // Remove email DB error
+    this.emailDbErr = false;
     
     // Set error messages according to the type of the formControl
     switch (this.type) {
       case ("email"):
         if (this.formControl?.errors?.['email'])
-          this.errMsg = "Please enter a valid email"
+          this.errMsg = "Please enter a valid email";
         break;
       case ("password"):
         // Minimum length
-        if (str.length < this.minLength) {
+        if (str.length < this.minLength)
           this.errMsg = `Password must be ${this.minLength} characters or longer`;
-        } 
         break;
-      case ("confirmPw"):
+      case ("confirmPw"):       
         // Minimum length
-        if (str.length < this.minLength) {
+        console.log(this.form.errors)
+        if (str.length < this.minLength)
           this.errMsg = `Password must be ${this.minLength} characters or longer`;
-
-          // Check passwords match
-        } else if (this.form.errors?.['passwordMatch']) {
+        // Check passwords match
+        else if (this.form.errors?.['passwordMatch'])
           this.errMsg = "Passwords must match";
-        }
         break;
     }
   }
 
   isValid(): boolean {
+    if (this.emailDbErr)
+      return false;
+
     // Slightly different check if it is a 'confirmPw' formControl
     if (this.type === ("confirmPw")) {
       return this.formControl!.valid && !this.form.errors;
@@ -134,7 +146,6 @@ export class FormControlComponent implements OnInit, OnChanges {
 
   emitValue(): void {
     this.newDataEvent.emit({
-      validity: this.isValid(),
       dataType: this.type,
       data: this.formControl!.value
     });

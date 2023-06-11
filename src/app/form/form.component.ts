@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { FieldData } from 'src/interfaces/FieldData';
 import { FormData } from 'src/interfaces/FormData';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 @Component({
   selector: 'app-form',
@@ -11,6 +11,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 })
 export class FormComponent implements OnInit {
   @Input() formType: "login" | "signup" = "login";
+  @Input() emailError$?: Observable<string>;
   isSubmitted = false;
 
   title = ''
@@ -52,6 +53,6 @@ export class FormComponent implements OnInit {
   }
 
   updateData(data: FieldData): void {
-    this.formData[data.dataType] = [data.data, data.validity];
+    this.formData[data.dataType] = data.data;
   }
 }

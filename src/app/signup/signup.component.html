@@ -1,3 +1,4 @@
 <main>
-  <app-form formType="signup" (newDataEvent)="signUpUser($event)"></app-form>
+  <app-form formType="signup" (newDataEvent)="signUpUser($event)"
+  [emailError$]="emailError$"></app-form>
 </main>

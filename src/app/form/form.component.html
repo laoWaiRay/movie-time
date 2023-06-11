@@ -4,7 +4,7 @@
   <div class="form-group">
     <!-- Email control -->
     <app-form-control [appForm]="formGroup" [appSubmitted]="isSubmitted" appType="email" 
-    (newDataEvent)="updateData($event)"></app-form-control>
+    (newDataEvent)="updateData($event)" [emailError$]="emailError$"></app-form-control>
     <!-- Username control -->
     <app-form-control *ngIf="formType==='signup'" [appForm]="formGroup" [appSubmitted]="isSubmitted" 
     appType="username" (newDataEvent)="updateData($event)"></app-form-control>
