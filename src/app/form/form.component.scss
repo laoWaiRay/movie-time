@@ -41,3 +41,9 @@ a {
   color: var(--accent-light);
   font-weight: 600;
 }
+
+.loginErrMsg {
+  padding: 1rem 0;
+  margin: .5rem 0 -1.5rem 0;
+  color: var(--danger);
+}

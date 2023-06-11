@@ -16,6 +16,7 @@
         [class.error-input]="!isValid() && submitted && isFocused && inputRef.value"
         [class.valid-input]="isValid() && submitted && isFocused && inputRef.value"
         (change)="emitValue()"
+        (input)="validateUsername(inputRef.value)"
       >
       <button type="button" *ngIf="['password','confirmPw'].includes(type)" class="pw-toggler"
       (click)="toggleHidePw()">

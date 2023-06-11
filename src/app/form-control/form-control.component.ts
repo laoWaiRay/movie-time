@@ -4,7 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UuidService } from '../uuid.service';
 import { PasswordMatchValidator } from '../password-match-validator.directive';
 import { FieldData } from 'src/interfaces/FieldData';
-import { Observable } from 'rxjs';
+import { Observable, Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { UsersService } from '../users.service';
 
 @Component({
   selector: 'app-form-control',
@@ -25,12 +26,15 @@ export class FormControlComponent implements OnInit, OnChanges {
   @Input() emailError$?: Observable<string>;
   isFocused = false;
   isPwHidden = true;
+  usernameSearchTerms$ = new Subject<string>();
+  usernameErr = false;
 
   @Output() newDataEvent = new EventEmitter<FieldData>();
 
   constructor(
     private uuid: UuidService,
-    private el: ElementRef
+    private el: ElementRef,
+    private usersService: UsersService
   ) {
     this.id = this.uuid.getId();
   }
@@ -40,8 +44,11 @@ export class FormControlComponent implements OnInit, OnChanges {
     switch (this.type) {
       case "email":
         this.labelName = "Email";
+        // Simple regex for email
         this.form.addControl(this.type, new FormControl('', 
-                [Validators.required, Validators.email]))
+                [Validators.required, Validators.pattern('.+\@.+\..+')]));
+
+        // Listens for form submissions and sets error msg if email is already taken
         this.emailError$?.subscribe((error) => {
           if (error) {
             this.emailDbErr = true;
@@ -52,6 +59,19 @@ export class FormControlComponent implements OnInit, OnChanges {
       case "username":
         this.labelName = "Username";
         this.form.addControl(this.type, new FormControl('', [Validators.required]))
+        // Live username availability checking
+        this.usernameSearchTerms$.pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          switchMap((term: string) => this.usersService.searchUsers(term))
+        ).subscribe(users => {
+          if (users.length > 0) {
+            this.usernameErr = true;
+            this.errMsg = "This username has already been claimed"
+          }
+          else
+            this.usernameErr = false;
+        });
         break;
       case "password":
         this.labelName = "Password"
@@ -78,19 +98,18 @@ export class FormControlComponent implements OnInit, OnChanges {
   }
 
   setErrMsg(str: string): void {
-    // Since all fields are required just put this here
     if (!str) {
       this.errMsg = "Required";
       return;
     }
 
-    // Remove email DB error
+    // Remove DB errors
     this.emailDbErr = false;
     
     // Set error messages according to the type of the formControl
     switch (this.type) {
       case ("email"):
-        if (this.formControl?.errors?.['email'])
+        if (this.formControl?.errors?.['pattern'])
           this.errMsg = "Please enter a valid email";
         break;
       case ("password"):
@@ -100,7 +119,6 @@ export class FormControlComponent implements OnInit, OnChanges {
         break;
       case ("confirmPw"):       
         // Minimum length
-        console.log(this.form.errors)
         if (str.length < this.minLength)
           this.errMsg = `Password must be ${this.minLength} characters or longer`;
         // Check passwords match
@@ -111,7 +129,7 @@ export class FormControlComponent implements OnInit, OnChanges {
   }
 
   isValid(): boolean {
-    if (this.emailDbErr)
+    if (this.emailDbErr || this.usernameErr)
       return false;
 
     // Slightly different check if it is a 'confirmPw' formControl
@@ -149,5 +167,11 @@ export class FormControlComponent implements OnInit, OnChanges {
       dataType: this.type,
       data: this.formControl!.value
     });
+  }
+
+  validateUsername(username: string): void {
+    if (this.type !== 'username')
+      return
+    this.usernameSearchTerms$.next(username);
   }
 }

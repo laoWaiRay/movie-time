@@ -1,6 +1,7 @@
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <h2 class="">{{ title }}</h2>
   <p class="sub-text">{{ titleMsg }}</p>
+  <div *ngIf="loginFormErrMsg" class="loginErrMsg">{{loginFormErrMsg}}</div>
   <div class="form-group">
     <!-- Email control -->
     <app-form-control [appForm]="formGroup" [appSubmitted]="isSubmitted" appType="email" 

@@ -12,6 +12,7 @@ import { FormData } from 'src/interfaces/FormData';
 export class FormComponent implements OnInit {
   @Input() formType: "login" | "signup" = "login";
   @Input() emailError$?: Observable<string>;
+  @Input() loginFormErrMsg = '';
   isSubmitted = false;
 
   title = ''
