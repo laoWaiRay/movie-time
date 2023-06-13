@@ -1,13 +1,26 @@
 <mat-toolbar class="mat-toolbar" color="primary">
-  <a href="#" class="logo">
+  <a routerLink="/" class="logo">
     <img class="logo-img" src="assets/img/popcorn.svg" alt="popcorn">
     <span class="logo-text">MovieTime</span>
   </a>
 
-  <nav class="nav">
-    <ul>
-      <a class='btn' routerLink="/login" routerLinkActive="active">Login</a>
-      <a class='btn' routerLink="/signup" routerLinkActive="active">Register</a>
+  <nav class="nav" *ngIf="!isLoading">
+    <ul *ngIf="user; else authBlock">
+      <button class="avatar-btn" [matMenuTriggerFor]="userMenu">
+        <img src="{{userAvatarURL}}" class="user-avatar">
+      </button>
+      
+      <mat-menu #userMenu="matMenu" class="matMenu">
+        <button class='matMenu-link' mat-menu-item routerLink="/login" routerLinkActive="active" (click)="logoutUser()">Profile</button>
+        <button class='matMenu-link' mat-menu-item routerLink="/login" routerLinkActive="active" (click)="logoutUser()">Logout</button>
+      </mat-menu>
     </ul>
+
+    <ng-template #authBlock>
+      <ul>
+        <a class='btn' routerLink="/login" routerLinkActive="active">Login</a>
+        <a class='btn' routerLink="/signup" routerLinkActive="active">Register</a>
+      </ul>
+    </ng-template>
   </nav>
 </mat-toolbar>

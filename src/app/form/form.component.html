@@ -16,6 +16,6 @@
     <app-form-control *ngIf="formType==='signup'" [appForm]="formGroup" [appSubmitted]="isSubmitted" 
     appType="confirmPw" (newDataEvent)="updateData($event)"></app-form-control>
   </div>
-  <button type="submit">Sign in</button>
+  <button type="submit">{{formType=='login' ? 'Sign In' : 'Sign Up'}}</button>
   <p class="sub-text">{{ helpMsg }} <a routerLink="{{ link }}">{{ linkMsg }}</a></p>
 </form>

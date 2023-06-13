@@ -1,5 +1,5 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
-import { Auth, User, user, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Auth, User, user, createUserWithEmailAndPassword, signInWithEmailAndPassword, Persistence } from '@angular/fire/auth';
 import { Observable, Subscription } from 'rxjs';
 
 @Injectable({
@@ -8,9 +8,11 @@ import { Observable, Subscription } from 'rxjs';
 export class AuthService implements OnDestroy {
   user$: Observable<User | null>;
   userSubscription: Subscription;
-  currentUser?: User | null; 
+  currentUser: User | null;
 
   constructor(private auth: Auth) { 
+    this.currentUser = auth.currentUser;
+    
     this.user$ = user(auth);
     this.userSubscription = this.user$.subscribe((usr) => {
       this.currentUser = usr;
@@ -43,6 +45,10 @@ export class AuthService implements OnDestroy {
       console.log(error);
       return true;
     }
+  }
+
+  getAuth() {
+    return this.auth;
   }
 
   getCurrentUser() {
