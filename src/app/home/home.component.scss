@@ -1,5 +1,6 @@
 @use '/src/styles/mixins/containers';
 @use '/src/styles/mixins/typography';
+@use '/src/styles/mixins/buttons';
 
 @include containers.fixed-height-main;
 
@@ -7,14 +8,17 @@
   display: grid;
   height: calc(100% - 6rem);
   width: calc(100% - 6rem);
+  max-width: 1200px;
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
+  z-index: 0;
 }
 
 .panel-left, .panel-right {
   background-color: var(--bg-dark);
   border-radius: 8px;
   padding: 2rem;
+  z-index: 0;
 }
 
 h3 {
@@ -23,5 +27,40 @@ h3 {
 }
 
 .card {
-  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  margin: 2rem 0;
+  font-size: 1.5rem;
+  color: var(--gray-light);
+}
+
+.number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: 2rem;
+  width: 2rem;
+  aspect-ratio: 1;
+  border: 3px solid var(--gray-light);
+  border-radius: 50%;
+  padding: 4px;
+  margin-right: 1rem;
+}
+
+.matIcon-arrow {
+  margin-left: 1rem;
+  flex-shrink: 0;
+  width: fit-content;
+  height: fit-content;
+  display: inline-block;
+  font-size: 36px;
+
+  &::before {
+    width: fit-content;
+  }
+}
+
+.btn-connect {
+  @include buttons.ctaBtn;
 }
