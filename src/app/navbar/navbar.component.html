@@ -3,7 +3,17 @@
     <img class="logo-img" src="assets/img/popcorn.svg" alt="popcorn">
     <span class="logo-text">MovieTime</span>
   </a>
+  <!-- Left Menu (only if authorized) -->
+  <nav class="auth-nav" *ngIf="!isLoading && user">
+    <ul class="auth-nav-list">
+      <a class='btn' routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a class='btn' routerLink="/profile" routerLinkActive="active">Profile</a>
+      <a class='btn' routerLink="/list" routerLinkActive="active">Movie List</a>
+      <a class='btn' routerLink="/add" routerLinkActive="active">Add Movies</a>
+    </ul>
+  </nav>
 
+  <!-- Right Menu -->
   <nav class="nav" *ngIf="!isLoading">
     <ul *ngIf="user; else authBlock">
       <button class="avatar-btn" [matMenuTriggerFor]="userMenu">
@@ -11,7 +21,9 @@
       </button>
       
       <mat-menu #userMenu="matMenu" class="matMenu">
-        <button class='matMenu-link' mat-menu-item routerLink="/login" routerLinkActive="active" (click)="logoutUser()">Profile</button>
+        <button class='matMenu-link' mat-menu-item (click)="toggleDarkMode()">
+          <mat-icon aria-label="toggle dark mode" fontIcon="dark_mode" class="icon-dark-mode"></mat-icon>
+        </button>
         <button class='matMenu-link' mat-menu-item routerLink="/login" routerLinkActive="active" (click)="logoutUser()">Logout</button>
       </mat-menu>
     </ul>

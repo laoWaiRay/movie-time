@@ -46,12 +46,14 @@
 
 .user-avatar {
   border-radius: 50%;
-  width: 50px;
+  width: 100%;
+  object-fit: cover;
 }
 
 .avatar-btn {
   background-color: transparent;
   padding: 0;
+  width: 40px;
   border-radius: 50%;
   border: 0;
 }
@@ -61,7 +63,8 @@
   display: flex;
   justify-content: center;
   color: var(--white);
-  font-weight: 600;
+  font-weight: 500;
+  top: 10px;
 
     .matMenu-link {
       justify-content: center;
@@ -72,4 +75,17 @@
 .mat-mdc-menu-content {
   padding: 0 !important;
   margin: 0 !important;
+}
+
+.auth-nav-list {
+  display: flex;
+  margin-left: .75rem;
+    
+    a {
+      margin: 0 .25rem;
+    }
+}
+
+.matMenu .matMenu-link .mat-icon {
+  margin-right: 0;
 }

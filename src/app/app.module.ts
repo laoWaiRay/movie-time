@@ -25,6 +25,10 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { FormComponent } from './form/form.component';
 import { FormControlComponent } from './form-control/form-control.component';
+import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
+import { MovieListComponent } from './movie-list/movie-list.component';
+import { AddMoviesComponent } from './add-movies/add-movies.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +38,10 @@ import { FormControlComponent } from './form-control/form-control.component';
     SignupComponent,
     FormComponent,
     FormControlComponent,
+    HomeComponent,
+    ProfileComponent,
+    MovieListComponent,
+    AddMoviesComponent,
   ],
   imports: [
     // Material Modules

@@ -1,5 +1,5 @@
 @mixin fixed-height-main {
-  main {
+  .fixed-height-main {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,7 @@
   }
   
   @media only screen and (max-width: 599px)  {
-    main { 
+    .fixed-height-main { 
       height: calc(100vh - 56px); 
     }
   }

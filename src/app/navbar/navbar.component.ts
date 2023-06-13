@@ -37,4 +37,8 @@ export class NavbarComponent implements OnInit{
     this.user = null;
     signOut(this.authService.getAuth());
   }
+
+  toggleDarkMode(): void {
+    // TODO
+  }
 }
